@@ -1,0 +1,66 @@
+/* Hacker-style CTF theme overrides */
+/* Uses variables from tokens.css */
+
+/* Matrix canvas sits behind content */
+#matrix-canvas{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:0.18;
+}
+
+/* Main app container should sit above matrix */
+main, header, footer, .container{position:relative;z-index:10}
+
+/* Neon headings */
+.hacker-title{font-family:var(--font-sans-head);color:var(--primary);text-shadow:0 0 10px rgba(11,197,163,0.12),0 0 24px rgba(11,197,163,0.06);}
+
+/* Terminal panel */
+.terminal{
+  background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(2,8,6,0.55));
+  border:1px solid rgba(11,197,163,0.12);
+  color:var(--primary);
+  font-family:var(--font-mono);
+  padding:16px;
+  border-radius:8px;
+  box-shadow:0 8px 30px rgba(0,8,6,0.6);
+}
+
+.terminal .prompt{color:#7fffd4;}
+.terminal .cmd{color:#b9ffcf}
+
+/* Scanner line effect */
+.scanner-line{
+  position:relative;
+  overflow:hidden;
+}
+.scanner-line::after{
+  content:'';
+  position:absolute;
+  left:-120%;
+  top:0;right:-120%;bottom:0;
+  background:linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(11,197,163,0.06) 45%, rgba(11,197,163,0.12) 50%, rgba(11,197,163,0.06) 55%, rgba(0,0,0,0) 100%);
+  transform:skewX(-18deg);
+  animation:scan 3.5s linear infinite;
+}
+@keyframes scan{
+  0%{left:-120%}
+  100%{left:120%}
+}
+
+/* Code block tweaks (Prism) */
+pre[class*="language-"]{background:#071014;border-radius:8px;padding:14px;overflow:auto;border:1px solid rgba(255,255,255,0.03)}
+code[class*="language-"]{font-family:var(--font-mono); font-size:0.95rem}
+.has-copy{position:relative}
+.copy-btn{position:absolute;top:8px;right:8px;background:rgba(255,255,255,0.04);color:var(--text-primary);border:1px solid rgba(255,255,255,0.06);padding:6px 8px;border-radius:8px;cursor:pointer}
+.copy-btn:hover{background:rgba(255,255,255,0.08)}
+
+/* Neon link */
+a.neon{color:var(--primary);text-decoration:none}
+a.neon:hover{text-shadow:0 0 8px rgba(11,197,163,0.2)}
+
+/* Responsive tweaks */
+@media (max-width:900px){
+  .hero{padding:20px}
+}

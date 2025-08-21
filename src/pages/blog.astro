@@ -1,0 +1,120 @@
+---
+import Layout from '../layouts/Layout.astro';
+import posts from '../content/posts.json';
+
+// Explicit types to satisfy TypeScript in Astro frontmatter
+type Post = {
+  date: string;
+  slug: string;
+  title: string;
+  tags?: string[];
+};
+
+const byYear: Record<string, Post[]> = {};
+for (const p of posts as Post[]) {
+  const y = String(new Date(p.date).getFullYear());
+  if (!byYear[y]) byYear[y] = [];
+  byYear[y].push(p);
+}
+
+// Sort posts within each year (newest first)
+for (const y of Object.keys(byYear)) {
+  byYear[y].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
+const years = Object.keys(byYear).sort((a, b) => Number(b) - Number(a));
+---
+
+<Layout>
+
+  
+  <!-- 📝 部落格主要內容 -->
+  <section class="posts-section">
+    <div class="posts-container">
+      <!-- 🎯 頁面標題區塊 -->
+      <div class="section-header animate-fade-in-up">
+        <h1 class="section-title">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"/>
+            <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2"/>
+            <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2"/>
+            <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2"/>
+            <polyline points="10,9 9,9 8,9" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          Blog Archive
+        </h1>
+        <p class="section-subtitle">Latest posts and write‑ups</p>
+        <div class="blog-stats">
+          <div class="stat-item">
+            <span class="stat-number">{posts.length}</span>
+            <span class="stat-label">文章</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">{years.length}</span>
+            <span class="stat-label">年份</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🗂️ 按年份分組的文章 -->
+      <div class="blog-timeline animate-fade-in-up delay-300">
+        {years.map((year, yearIndex) => (
+          <div class="year-section">
+            <div class="year-header">
+              <h2 class="year-title">{year}</h2>
+              <div class="year-line"></div>
+            </div>
+            
+            <div class="year-posts">
+              {byYear[year].map((post, postIndex) => (
+                <article class="blog-post-card">
+                  <div class="post-timeline-dot"></div>
+                  <div class="post-card-content">
+                    <div class="post-header">
+                      <time class="post-date">
+                        {new Date(post.date).toLocaleDateString('zh-TW', { 
+                          month: 'short', 
+                          day: 'numeric' 
+                        })}
+                      </time>
+                      <div class="post-tags">
+                        {(post.tags || []).map(tag => (
+                          <span class="post-tag">{tag}</span>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <h3 class="post-title">
+                      <a href={post.slug} class="post-link">
+                        {post.title}
+                      </a>
+                    </h3>
+                    
+                    <div class="post-footer">
+                      <a href={post.slug} class="read-more">
+                        READ MORE
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                          <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <!-- 🔗 查看全部按鈕 -->
+      <div class="view-all animate-fade-in-up delay-400">
+        <a href="/" class="view-all-btn">
+          BACK TO HOME
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

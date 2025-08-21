@@ -1,0 +1,798 @@
+---
+export interface Props {
+  title: string;
+  meta?: string;
+  breadcrumbCurrent?: string;
+  challengeTitle?: string;
+  solutionTitle?: string;
+  showCommands?: boolean;
+  showCode?: boolean;
+  category?: string;
+  difficulty?: string;
+  points?: string | number;
+}
+
+const {
+  title,
+  meta = "發布於 2025-02-01 | Write-up | 5 分鐘閱讀",
+  breadcrumbCurrent = "Write-up",
+  challengeTitle = "CHALLENGE",
+  solutionTitle = "SOLUTION",
+  showCommands = true,
+  showCode = true,
+  category = "CTF",
+  difficulty = "Medium",
+  points = "300"
+} = Astro.props;
+---
+
+<article class="writeup-article">
+  <div class="writeup-container">
+    <!-- 📖 文章標題區塊 -->
+    <header class="writeup-header">
+      <div class="writeup-breadcrumb">
+        <a href="/" class="breadcrumb-link">首頁</a>
+        <span class="breadcrumb-separator">→</span>
+        <a href="/blog" class="breadcrumb-link">文章</a>
+        <span class="breadcrumb-separator">→</span>
+        <span class="breadcrumb-current">{breadcrumbCurrent}</span>
+      </div>
+      
+      <h1 class="writeup-title">{title}</h1>
+      
+      <div class="writeup-meta">{meta}</div>
+    </header>
+
+    <!-- 🎯 挑戰區塊 -->
+    <slot name="challenge">
+      <section class="challenge-section">
+        <div class="section-header">
+          <div class="section-indicator"></div>
+          <h2 class="section-title">{challengeTitle}</h2>
+        </div>
+        <div class="challenge-content">
+          <slot name="challenge-content">
+            <p>請在這裡描述挑戰內容...</p>
+          </slot>
+          
+          <div class="challenge-details">
+            <div class="detail-item">
+              <span class="detail-label">Category:</span>
+              <span class="detail-value">{category}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Difficulty:</span>
+              <span class="detail-value">{difficulty}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Points:</span>
+              <span class="detail-value">{points}</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </slot>
+
+    <!-- 🔧 解決方案區塊 -->
+    <slot name="solution">
+      <section class="solution-section">
+        <div class="section-header">
+          <div class="section-indicator"></div>
+          <h2 class="section-title">{solutionTitle}</h2>
+        </div>
+        <div class="solution-content">
+          <slot name="solution-content">
+            <p>請在這裡描述解決方案...</p>
+          </slot>
+          
+          <slot name="solution-steps">
+            <div class="analysis-steps">
+              <div class="step-item">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                  <h3>分析問題</h3>
+                  <p>首先分析題目給出的條件和要求</p>
+                </div>
+              </div>
+              
+              <div class="step-item">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                  <h3>制定策略</h3>
+                  <p>根據分析結果制定解題策略</p>
+                </div>
+              </div>
+              
+              <div class="step-item">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                  <h3>實施方案</h3>
+                  <p>執行解題方案並獲得結果</p>
+                </div>
+              </div>
+            </div>
+          </slot>
+        </div>
+      </section>
+    </slot>
+
+    <!-- 💻 命令區塊 -->
+    {showCommands && (
+      <slot name="commands">
+        <section class="commands-section">
+          <h2 class="commands-title">COMMANDS</h2>
+          
+          <slot name="terminal-panels">
+            <div class="terminal-panel">
+              <div class="terminal-header">
+                <div class="terminal-controls">
+                  <div class="terminal-dot terminal-dot-red"></div>
+                  <div class="terminal-dot terminal-dot-yellow"></div>
+                  <div class="terminal-dot terminal-dot-green"></div>
+                </div>
+                <div class="terminal-title">TERMINAL</div>
+                <div class="terminal-actions">
+                  <button class="terminal-btn copy-btn" title="複製">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="terminal-content">
+                <slot name="terminal-content">
+                  <div class="terminal-line">
+                    <span class="prompt">❯</span>
+                    <span class="command">echo "請在這裡添加命令"</span>
+                  </div>
+                  <div class="terminal-output">
+                    <div class="output-line">輸出結果...</div>
+                  </div>
+                </slot>
+              </div>
+            </div>
+          </slot>
+        </section>
+      </slot>
+    )}
+
+    <!-- 📝 代碼區塊 -->
+    {showCode && (
+      <slot name="code">
+        <section class="code-section">
+          <h2 class="code-title">CODE</h2>
+          
+          <slot name="code-panels">
+            <div class="code-panel">
+              <div class="code-header">
+                <div class="code-language">Python</div>
+                <button class="code-copy-btn" title="複製代碼">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="code-content">
+                <slot name="code-content">
+                  <pre><code># 請在這裡添加代碼
+print("Hello, World!")</code></pre>
+                </slot>
+              </div>
+            </div>
+          </slot>
+        </section>
+      </slot>
+    )}
+
+    <!-- 🎯 總結區塊 -->
+    <slot name="summary">
+      <section class="summary-section">
+        <div class="summary-content">
+          <h2>🔍 解題關鍵</h2>
+          <slot name="key-points">
+            <ul class="key-points">
+              <li>分析問題的關鍵點</li>
+              <li>選擇合適的解決方法</li>
+              <li>實施並驗證方案</li>
+              <li>總結經驗和教訓</li>
+            </ul>
+          </slot>
+          
+          <slot name="warning">
+            <div class="warning-box">
+              <div class="warning-icon">⚠️</div>
+              <div class="warning-text">
+                <strong>提醒：</strong>
+                本文內容僅供教育和研究目的，請勿用於非法活動。
+              </div>
+            </div>
+          </slot>
+        </div>
+      </section>
+    </slot>
+
+    <!-- 🔗 自定義內容區塊 -->
+    <slot name="custom-content" />
+  </div>
+</article>
+
+<style>
+  /* 📖 文章頁面樣式 - Edit-Mr & OsGa.dev 融合設計 */
+  .writeup-article {
+    min-height: 100vh;
+    padding-top: calc(70px + 2rem);
+    background: var(--bg-primary);
+  }
+
+  .writeup-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+  }
+
+  /* 📖 文章標題區塊 */
+  .writeup-header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+    padding: var(--space-2xl) 0;
+  }
+
+  .writeup-breadcrumb {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+    font-size: 0.875rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .breadcrumb-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .breadcrumb-link:hover {
+    color: var(--accent-primary);
+  }
+
+  .breadcrumb-separator {
+    color: var(--text-muted);
+  }
+
+  .breadcrumb-current {
+    color: var(--accent-primary);
+    font-weight: 600;
+  }
+
+  .writeup-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: var(--space-lg);
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .writeup-meta {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-xl);
+    font-family: var(--font-mono);
+  }
+
+  /* 🎯 區塊樣式 */
+  .challenge-section,
+  .solution-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .section-indicator {
+    width: 4px;
+    height: 40px;
+    background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));
+    border-radius: 2px;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+  }
+
+  .challenge-content,
+  .solution-content {
+    background: var(--bg-card);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    padding: var(--space-2xl);
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+  }
+
+  .challenge-content::before,
+  .solution-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  }
+
+  .challenge-content p,
+  .solution-content p {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-lg);
+  }
+
+  /* 🔍 挑戰詳情 */
+  .challenge-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md) var(--space-lg);
+    background: var(--bg-primary);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    transition: all var(--transition-normal);
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  }
+
+  .detail-item:hover {
+    border-color: var(--accent-primary);
+    background: rgba(0, 255, 136, 0.05);
+  }
+
+  .detail-label {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .detail-value {
+    font-weight: 600;
+    color: var(--accent-primary);
+  }
+
+  /* 📋 解題步驟 */
+  .analysis-steps {
+    margin-top: var(--space-xl);
+  }
+
+  .step-item {
+    display: flex;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--bg-primary);
+    border: 1px solid rgba(0, 255, 136, 0.1);
+    transition: all var(--transition-normal);
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+
+  .step-item:hover {
+    border-color: var(--accent-primary);
+    background: rgba(0, 255, 136, 0.03);
+    transform: translateX(8px);
+  }
+
+  .step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--accent-primary);
+    color: var(--bg-primary);
+    font-weight: 700;
+    font-family: var(--font-mono);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .step-content h3 {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    margin-bottom: var(--space-sm);
+    font-weight: 600;
+  }
+
+  .step-content p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* 💻 命令區塊 */
+  .commands-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .commands-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: var(--space-xl);
+  }
+
+  .terminal-panel {
+    background: var(--bg-primary);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    margin-bottom: var(--space-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
+    clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+  }
+
+  .terminal-panel:hover {
+    border-color: var(--accent-primary);
+    box-shadow: var(--shadow-glow);
+  }
+
+  .terminal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-md) var(--space-lg);
+    background: rgba(0, 255, 136, 0.05);
+    border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+  }
+
+  .terminal-controls {
+    display: flex;
+    gap: var(--space-sm);
+  }
+
+  .terminal-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transition: all var(--transition-fast);
+  }
+
+  .terminal-dot-red { background: #ff5f56; }
+  .terminal-dot-yellow { background: #ffbd2e; }
+  .terminal-dot-green { background: #27ca3f; }
+
+  .terminal-panel:hover .terminal-dot {
+    transform: scale(1.1);
+    box-shadow: 0 0 8px currentColor;
+  }
+
+  .terminal-title {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .terminal-actions {
+    display: flex;
+    gap: var(--space-xs);
+  }
+
+  .terminal-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    clip-path: polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px));
+  }
+
+  .terminal-btn:hover {
+    background: var(--accent-primary);
+    color: var(--bg-primary);
+    border-color: var(--accent-primary);
+    transform: scale(1.05);
+  }
+
+  .terminal-content {
+    padding: var(--space-xl);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+  }
+
+  .terminal-line {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .prompt {
+    color: var(--accent-primary);
+    font-weight: 600;
+  }
+
+  .command {
+    color: var(--text-secondary);
+  }
+
+  .terminal-output {
+    margin-top: var(--space-lg);
+    padding-left: var(--space-lg);
+    border-left: 2px solid rgba(0, 255, 136, 0.2);
+  }
+
+  .output-line {
+    margin-bottom: var(--space-sm);
+    color: var(--text-secondary);
+  }
+
+  .output-line.success {
+    color: var(--accent-primary);
+    font-weight: 600;
+  }
+
+  .code-block {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    background: rgba(0, 255, 136, 0.05);
+    border-radius: 6px;
+    border: 1px solid rgba(0, 255, 136, 0.2);
+  }
+
+  /* 📝 代碼區塊 */
+  .code-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .code-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: var(--space-xl);
+  }
+
+  .code-panel {
+    background: var(--bg-primary);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    overflow: hidden;
+    clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+  }
+
+  .code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md) var(--space-lg);
+    background: rgba(0, 255, 136, 0.05);
+    border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+  }
+
+  .code-language {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--accent-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .code-copy-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    clip-path: polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px));
+  }
+
+  .code-copy-btn:hover {
+    background: var(--accent-primary);
+    color: var(--bg-primary);
+    border-color: var(--accent-primary);
+  }
+
+  .code-content {
+    padding: 0;
+  }
+
+  .code-content pre {
+    margin: 0;
+    padding: var(--space-xl);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    overflow-x: auto;
+  }
+
+  .code-content code {
+    background: none;
+    color: inherit;
+    padding: 0;
+    border: none;
+  }
+
+  /* 🎯 總結區塊 */
+  .summary-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .summary-content {
+    background: var(--bg-card);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    padding: var(--space-2xl);
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+  }
+
+  .summary-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  }
+
+  .summary-content h2 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: var(--space-lg);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .key-points {
+    list-style: none;
+    padding: 0;
+    margin-bottom: var(--space-xl);
+  }
+
+  .key-points li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md) 0;
+    color: var(--text-secondary);
+    border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+  }
+
+  .key-points li::before {
+    content: '▶';
+    color: var(--accent-primary);
+    font-size: 0.875rem;
+  }
+
+  .warning-box {
+    display: flex;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    background: rgba(255, 170, 0, 0.1);
+    border: 1px solid rgba(255, 170, 0, 0.3);
+    border-radius: 8px;
+    margin-top: var(--space-xl);
+  }
+
+  .warning-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  .warning-text {
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .warning-text strong {
+    color: var(--accent-warning);
+  }
+
+  /* 📱 響應式設計 */
+  @media (max-width: 768px) {
+    .writeup-container {
+      padding: 0 var(--space-md);
+    }
+
+    .challenge-content,
+    .solution-content,
+    .summary-content {
+      padding: var(--space-xl);
+    }
+
+    .challenge-details {
+      grid-template-columns: 1fr;
+    }
+
+    .step-item {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+    }
+
+    .terminal-header {
+      padding: var(--space-sm) var(--space-md);
+    }
+
+    .terminal-content {
+      padding: var(--space-lg);
+      font-size: 0.75rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .writeup-title {
+      font-size: 1.75rem;
+    }
+
+    .section-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-sm);
+    }
+
+    .challenge-content,
+    .solution-content,
+    .summary-content {
+      padding: var(--space-lg);
+    }
+
+    .warning-box {
+      flex-direction: column;
+    }
+  }
+</style>

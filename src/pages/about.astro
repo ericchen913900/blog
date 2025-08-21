@@ -1,0 +1,265 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+  <!-- 🎯 關於頁面 Hero 區塊 -->
+  <section class="about-hero">
+    <div class="about-container">
+      <div class="about-header animate-fade-in-up">
+        <div class="about-breadcrumb">
+          <a href="/" class="breadcrumb-link">HOME</a>
+          <span class="breadcrumb-separator">/</span>
+          <span class="breadcrumb-current">ABOUT</span>
+        </div>
+        
+        <h1 class="about-title">
+          ABOUT <span class="title-dot">yeee</span>
+        </h1>
+        
+        <p class="about-subtitle">
+          高中資安愛好者，竹狐戰隊成員<br>
+          熱愛資安與開發，平時撰寫 CTF write-up 與學習筆記，分享工具與解題思路
+        </p>
+      </div>
+      
+      <!-- 頭像和基本信息 -->
+      <div class="about-profile animate-scale-in delay-200">
+        <div class="profile-avatar">
+          <img src="/avatar.jpg" alt="yeee - 資安專家" class="avatar-img" />
+        </div>
+        
+        <div class="profile-info">
+          <div class="info-item">
+            <span class="info-label">NAME</span>
+            <span class="info-value">yeee</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">ROLE</span>
+            <span class="info-value">CTF Player</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">TEAM</span>
+            <span class="info-value">BambooFox</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">FOCUS</span>
+            <span class="info-value">Web Security</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 部落格統計區塊 -->
+  <section class="stats-section">
+    <div class="stats-container">
+      <div class="section-header animate-fade-in-up">
+        <h2 class="section-title">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+            <path d="M9 11H7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2z" stroke="currentColor" stroke-width="2"/>
+            <path d="M17 7h-2a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          STATISTICS
+        </h2>
+      </div>
+      
+      <div class="stats-grid animate-fade-in-up delay-200">
+        <div class="stat-card">
+          <div class="stat-icon">📅</div>
+          <div class="stat-content">
+            <div class="stat-number" id="blog-days">0</div>
+            <div class="stat-label">BLOG DAYS</div>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">📝</div>
+          <div class="stat-content">
+            <div class="stat-number">3</div>
+            <div class="stat-label">ARTICLES</div>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">🏆</div>
+          <div class="stat-content">
+            <div class="stat-number">5+</div>
+            <div class="stat-label">CTF EVENTS</div>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">🎯</div>
+          <div class="stat-content">
+            <div class="stat-number">4</div>
+            <div class="stat-label">SKILLS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 時間軸區塊 -->
+  <section class="timeline-section">
+    <div class="timeline-container">
+      <div class="section-header animate-fade-in-up">
+        <h2 class="section-title">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+            <polyline points="12,6 12,12 16,14" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          EXPERIENCE
+        </h2>
+        <p class="section-subtitle">我的學習與成長軌跡</p>
+      </div>
+      
+      <div class="timeline-content animate-fade-in-up delay-200">
+        <!-- CTF / 資安經歷 -->
+        <div class="timeline-category">
+          <h3 class="category-title">CTF / SECURITY</h3>
+          <div class="timeline-items">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="timeline-year">2025</div>
+                <h4 class="timeline-title">竹狐戰隊</h4>
+                <p class="timeline-desc">現役成員，參與各大 CTF 競賽</p>
+              </div>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="timeline-year">2025</div>
+                <h4 class="timeline-title">FINAL CTF 競賽</h4>
+                <p class="timeline-desc">參與國際級 CTF 競賽</p>
+              </div>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="timeline-year">2025</div>
+                <h4 class="timeline-title">CTFtime 平台競賽</h4>
+                <p class="timeline-desc">活躍參賽者</p>
+              </div>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="timeline-year">2025</div>
+                <h4 class="timeline-title">HITCON (台灣駭客年會)</h4>
+                <p class="timeline-desc">會眾參與</p>
+              </div>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="timeline-year">2024</div>
+                <h4 class="timeline-title">AWPT</h4>
+                <p class="timeline-desc">進階網站滲透測試工作坊</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 學習 / 社群經歷 -->
+        <div class="timeline-category">
+          <h3 class="category-title">LEARNING / COMMUNITY</h3>
+          <div class="timeline-items">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="timeline-year">2025</div>
+                <h4 class="timeline-title">SITCON 2025</h4>
+                <p class="timeline-desc">學生計算機年會參與</p>
+              </div>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="timeline-year">2025</div>
+                <h4 class="timeline-title">SITCON Camp</h4>
+                <p class="timeline-desc">SITCON 夏令營</p>
+              </div>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="timeline-year">2025</div>
+                <h4 class="timeline-title">Dev Jam</h4>
+                <p class="timeline-desc">開發者聚會</p>
+              </div>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="timeline-year">2025</div>
+                <h4 class="timeline-title">總統盃黑客松</h4>
+                <p class="timeline-desc">參與國家級黑客松競賽</p>
+              </div>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="timeline-year">2024</div>
+                <h4 class="timeline-title">光通訊營隊</h4>
+                <p class="timeline-desc">技術學習營隊</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 檢定 / 其他 -->
+        <div class="timeline-category">
+          <h3 class="category-title">CERTIFICATIONS</h3>
+          <div class="timeline-items">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="timeline-year">2025</div>
+                <h4 class="timeline-title">APCS</h4>
+                <p class="timeline-desc">大學程式設計先修檢測 (觀念4級 / 實作3級)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // 計算部落格運行天數
+  function updateBlogDays() {
+    const startDate = new Date('2024-01-01'); // 設定部落格開始日期
+    const currentDate = new Date();
+    const timeDiff = currentDate.getTime() - startDate.getTime();
+    const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    
+    const blogDaysElement = document.getElementById('blog-days');
+    if (blogDaysElement) {
+      // 數字動畫效果
+      let currentNumber = 0;
+      const increment = Math.ceil(daysDiff / 50);
+      const timer = setInterval(() => {
+        currentNumber += increment;
+        if (currentNumber >= daysDiff) {
+          currentNumber = daysDiff;
+          clearInterval(timer);
+        }
+        blogDaysElement.textContent = currentNumber.toString();
+      }, 30);
+    }
+  }
+
+  // 頁面載入後執行
+  document.addEventListener('DOMContentLoaded', updateBlogDays);
+</script>

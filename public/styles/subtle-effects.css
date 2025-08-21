@@ -1,0 +1,176 @@
+/* 🎨 移除刺眼特效，保持簡潔優雅 */
+
+/* 移除粒子背景 */
+.particles-container,
+.stars {
+  display: none !important;
+}
+
+/* 簡化漸變文字效果 */
+.gradient-text {
+  background: none !important;
+  color: var(--accent-primary) !important;
+  font-weight: 700 !important;
+  -webkit-text-fill-color: unset !important;
+  animation: none !important;
+}
+
+/* 移除霓虹燈效果 */
+.neon-text {
+  color: var(--accent-primary) !important;
+  text-shadow: none !important;
+  animation: none !important;
+  font-weight: 600 !important;
+}
+
+/* 移除彩虹邊框 */
+.rainbow-border::before,
+.rainbow-border::after {
+  display: none !important;
+}
+
+.rainbow-border {
+  background: var(--bg-secondary) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 移除發光動畫 */
+.animate-glow {
+  animation: none !important;
+  box-shadow: none !important;
+}
+
+/* 移除浮動動畫 */
+.animate-float {
+  animation: none !important;
+}
+
+/* 移除波浪效果 */
+.wave::before {
+  display: none !important;
+}
+
+/* 移除打字機效果 */
+.typewriter {
+  border-right: none !important;
+  animation: none !important;
+  overflow: visible !important;
+  white-space: normal !important;
+  width: auto !important;
+}
+
+/* 移除浮動圖標 */
+.floating-elements,
+.floating-icon {
+  display: none !important;
+}
+
+/* 移除滑鼠跟隨效果 */
+.cursor-follower {
+  display: none !important;
+}
+
+/* 簡化頭像發光效果 */
+.avatar-glow {
+  opacity: 0.05 !important;
+  filter: blur(10px) !important;
+  animation: none !important;
+}
+
+/* 移除矩陣雨效果 */
+.matrix-char {
+  display: none !important;
+}
+
+/* 簡化按鈕懸停效果 */
+.btn:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 5px 15px rgba(0, 212, 170, 0.2) !important;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 8px 20px rgba(0, 212, 170, 0.3) !important;
+}
+
+/* 移除過度的動畫延遲 */
+.delay-100,
+.delay-200,
+.delay-300,
+.delay-400,
+.delay-500 {
+  animation-delay: 0s !important;
+}
+
+/* 簡化卡片懸停效果 */
+.post-card:hover,
+.skill-card:hover,
+.achievement-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* 移除過度的邊框動畫 */
+.post-card::before,
+.skill-card::before,
+.achievement-card::before {
+  display: none !important;
+}
+
+/* 簡化社交連結懸停效果 */
+.social-link:hover {
+  transform: translateY(-1px) scale(1.05) !important;
+  box-shadow: 0 5px 15px rgba(0, 212, 170, 0.2) !important;
+}
+
+/* 移除閃爍效果 */
+@keyframes neonFlicker,
+@keyframes gradientShift,
+@keyframes rainbowRotate,
+@keyframes matrixRain,
+@keyframes twinkle {
+  from, to { opacity: 1; transform: none; }
+}
+
+/* 保持基本的淡入動畫，但更加柔和 */
+.animate-fade-in-up,
+.animate-slide-in-left,
+.animate-slide-in-right,
+.animate-scale-in {
+  animation-duration: 0.6s !important;
+  animation-timing-function: ease-out !important;
+}
+
+/* 移除過度的發光效果 */
+.timeline-dot:hover,
+.post-timeline-dot:hover {
+  box-shadow: 0 0 8px var(--accent-primary) !important;
+}
+
+/* 簡化統計卡片效果 */
+.stat-card:hover,
+.achievement-card:hover .achievement-number {
+  transform: translateY(-2px) !important;
+  text-shadow: none !important;
+}
+
+/* 移除過度的邊框動畫 */
+.timeline-section-card::before,
+.writeup-content::before {
+  animation: none !important;
+}
+
+/* 保持優雅的過渡效果 */
+* {
+  transition-duration: 0.3s !important;
+}
+
+/* 移除刺眼的進度條效果 */
+.skill-progress-bar::after {
+  display: none !important;
+}
+
+/* 簡化終端懸停效果 */
+.terminal-panel:hover .terminal-dot {
+  transform: scale(1.05) !important;
+  box-shadow: none !important;
+}

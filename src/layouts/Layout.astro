@@ -1,0 +1,327 @@
+---
+const path = Astro.url.pathname;
+const isActive = (href: string) => path === href || (href !== '/' && path.startsWith(href));
+---
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Infosec Blog</title>
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://unpkg.com/github-markdown-css@5.5.0/github-markdown-dark.css">
+		<link rel="stylesheet" href="https://unpkg.com/@primer/octicons@19.9.0/build/build.css">
+		<link rel="stylesheet" href="/styles/fusion-design.css">
+	</head>
+	<body>
+		<!-- 🧭 簡潔現代的導航 -->
+		<header class="header">
+			<div class="header-content">
+				<a href="/" class="logo">yeee</a>
+				<nav class="nav" aria-label="主要導航">
+					<a class={`nav-link ${isActive('/') ? 'active' : ''}`} href="/">首頁</a>
+					<a class={`nav-link ${isActive('/about') ? 'active' : ''}`} href="/about">關於</a>
+					<a class={`nav-link ${isActive('/blog') ? 'active' : ''}`} href="/blog">文章</a>
+				</nav>
+			</div>
+		</header>
+		
+		<!-- 📊 滾動進度指示器 -->
+		<div class="scroll-indicator">
+			<div class="scroll-progress"></div>
+		</div>
+		<main>
+			<slot />
+		</main>
+		<!-- gradient is pure CSS now; matrix.js removed -->
+		<!-- 🎯 現代化腳本 -->
+		<script is:inline>
+			// 滾動進度指示器
+			window.addEventListener('scroll', () => {
+				const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+				const progressBar = document.querySelector('.scroll-progress');
+				if (progressBar) {
+					progressBar.style.width = scrolled + '%';
+				}
+			});
+
+			// 🌟 簡潔的背景效果
+			function createSubtleBackground() {
+				// 保持簡潔優雅的設計，不添加任何背景特效
+			}
+
+			// 🎭 滑動顯示動畫
+			function handleScrollAnimations() {
+				const reveals = document.querySelectorAll('.reveal');
+				
+				reveals.forEach(reveal => {
+					const windowHeight = window.innerHeight;
+					const elementTop = reveal.getBoundingClientRect().top;
+					const elementVisible = 150;
+					
+					if (elementTop < windowHeight - elementVisible) {
+						reveal.classList.add('active');
+					}
+				});
+			}
+
+			// 🎯 技能進度條動畫
+			function animateSkillBars() {
+				const skillBars = document.querySelectorAll('.skill-progress-bar');
+				
+				skillBars.forEach(bar => {
+					const rect = bar.getBoundingClientRect();
+					if (rect.top < window.innerHeight && rect.bottom > 0) {
+						const width = bar.style.width;
+						bar.style.width = '0%';
+						setTimeout(() => {
+							bar.style.width = width;
+						}, 500);
+					}
+				});
+			}
+
+			// 移除滑鼠跟隨效果以提供更好的用戶體驗
+
+			// 🎯 返回頂部按鈕
+			function handleBackToTop() {
+				const backToTopBtn = document.getElementById('backToTop');
+				if (!backToTopBtn) return;
+
+				window.addEventListener('scroll', () => {
+					if (window.scrollY > 300) {
+						backToTopBtn.style.opacity = '1';
+						backToTopBtn.style.visibility = 'visible';
+					} else {
+						backToTopBtn.style.opacity = '0';
+						backToTopBtn.style.visibility = 'hidden';
+					}
+				});
+
+				backToTopBtn.addEventListener('click', (e) => {
+					e.preventDefault();
+					window.scrollTo({
+						top: 0,
+						behavior: 'smooth'
+					});
+				});
+			}
+
+			// 🎨 打字機效果
+			function typewriterEffect() {
+				const typewriters = document.querySelectorAll('.typewriter');
+				
+				typewriters.forEach(element => {
+					const text = element.textContent;
+					element.textContent = '';
+					element.style.width = '0';
+					
+					let i = 0;
+					const timer = setInterval(() => {
+						if (i < text.length) {
+							element.textContent += text.charAt(i);
+							i++;
+						} else {
+							clearInterval(timer);
+							element.style.borderRight = 'none';
+						}
+					}, 100);
+				});
+			}
+
+			// 📖 文章功能增強
+			function generateTableOfContents() {
+				const toc = document.getElementById('tableOfContents');
+				if (!toc) return;
+
+				const headings = document.querySelectorAll('.content-wrapper h2, .content-wrapper h3, .content-wrapper h4');
+				if (headings.length === 0) return;
+
+				const tocList = document.createElement('ul');
+				
+				headings.forEach((heading, index) => {
+					const id = `heading-${index}`;
+					heading.id = id;
+					
+					const li = document.createElement('li');
+					const a = document.createElement('a');
+					a.href = `#${id}`;
+					a.textContent = heading.textContent;
+					a.className = `toc-link toc-${heading.tagName.toLowerCase()}`;
+					
+					li.appendChild(a);
+					tocList.appendChild(li);
+				});
+				
+				toc.appendChild(tocList);
+				
+				// 滾動高亮當前章節
+				window.addEventListener('scroll', updateTocHighlight);
+			}
+
+			function updateTocHighlight() {
+				const headings = document.querySelectorAll('.content-wrapper h2, .content-wrapper h3, .content-wrapper h4');
+				const tocLinks = document.querySelectorAll('.toc-link');
+				
+				let currentHeading = null;
+				
+				headings.forEach(heading => {
+					const rect = heading.getBoundingClientRect();
+					if (rect.top <= 100) {
+						currentHeading = heading;
+					}
+				});
+				
+				tocLinks.forEach(link => link.classList.remove('active'));
+				
+				if (currentHeading) {
+					const activeLink = document.querySelector(`a[href="#${currentHeading.id}"]`);
+					if (activeLink) {
+						activeLink.classList.add('active');
+					}
+				}
+			}
+
+			// 📊 閱讀進度條
+			function updateReadingProgress() {
+				const article = document.querySelector('.content-wrapper');
+				if (!article) return;
+
+				const scrolled = window.scrollY;
+				const articleTop = article.offsetTop;
+				const articleHeight = article.offsetHeight;
+				const windowHeight = window.innerHeight;
+				
+				const progress = Math.max(0, Math.min(100, 
+					((scrolled - articleTop + windowHeight) / articleHeight) * 100
+				));
+				
+				let progressBar = document.querySelector('.reading-progress-bar');
+				if (!progressBar) {
+					const progressContainer = document.createElement('div');
+					progressContainer.className = 'reading-progress';
+					progressBar = document.createElement('div');
+					progressBar.className = 'reading-progress-bar';
+					progressContainer.appendChild(progressBar);
+					document.body.appendChild(progressContainer);
+				}
+				
+				progressBar.style.width = progress + '%';
+			}
+
+			// 🎯 複製功能
+			function setupCopyButtons() {
+				// 複製連結
+				const copyLinkBtn = document.getElementById('copyLink');
+				if (copyLinkBtn) {
+					copyLinkBtn.addEventListener('click', () => {
+						navigator.clipboard.writeText(window.location.href);
+						showToast('連結已複製到剪貼板');
+					});
+				}
+
+				// 複製終端內容
+				const copyTerminalBtn = document.getElementById('copyTerminal');
+				if (copyTerminalBtn) {
+					copyTerminalBtn.addEventListener('click', () => {
+						const terminal = copyTerminalBtn.closest('.terminal-panel');
+						const content = terminal.querySelector('.terminal-content').textContent;
+						navigator.clipboard.writeText(content);
+						showToast('終端內容已複製');
+					});
+				}
+
+				// 複製代碼塊
+				document.querySelectorAll('pre').forEach(pre => {
+					const copyBtn = document.createElement('button');
+					copyBtn.className = 'copy-code-btn';
+					copyBtn.innerHTML = `
+						<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+							<rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+							<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="2"/>
+						</svg>
+					`;
+					copyBtn.title = '複製代碼';
+					
+					copyBtn.addEventListener('click', () => {
+						const code = pre.querySelector('code') || pre;
+						navigator.clipboard.writeText(code.textContent);
+						showToast('代碼已複製');
+					});
+					
+					pre.style.position = 'relative';
+					pre.appendChild(copyBtn);
+				});
+			}
+
+			// 🎨 提示訊息
+			function showToast(message) {
+				const toast = document.createElement('div');
+				toast.className = 'toast';
+				toast.textContent = message;
+				document.body.appendChild(toast);
+				
+				setTimeout(() => {
+					toast.classList.add('show');
+				}, 100);
+				
+				setTimeout(() => {
+					toast.classList.remove('show');
+					setTimeout(() => {
+						document.body.removeChild(toast);
+					}, 300);
+				}, 2000);
+			}
+
+			// 🎯 分享功能
+			function setupShareButtons() {
+				const shareTwitterBtn = document.getElementById('shareTwitter');
+				if (shareTwitterBtn) {
+					shareTwitterBtn.addEventListener('click', () => {
+						const title = document.querySelector('.writeup-title')?.textContent || document.title;
+						const url = window.location.href;
+						const text = `正在閱讀：${title}`;
+						const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+						window.open(twitterUrl, '_blank');
+					});
+				}
+			}
+
+			// 🎯 初始化所有效果
+			document.addEventListener('DOMContentLoaded', () => {
+				createSubtleBackground();
+				handleBackToTop();
+				generateTableOfContents();
+				setupCopyButtons();
+				setupShareButtons();
+				
+				// 滾動事件監聽
+				window.addEventListener('scroll', () => {
+					handleScrollAnimations();
+					animateSkillBars();
+					updateReadingProgress();
+				});
+				
+				// 初始檢查可見元素
+				handleScrollAnimations();
+			});
+
+			// 🎨 頁面載入動畫
+			window.addEventListener('load', () => {
+				document.body.classList.add('loaded');
+			});
+		</script>
+	</body>
+</html>
+
+<style>
+	html,
+	body {
+		margin: 0;
+		width: 100%;
+		height: 100%;
+	}
+</style>

@@ -1,0 +1,169 @@
+---
+import Layout from '../layouts/Layout.astro';
+import posts from '../content/posts.json';
+---
+
+<Layout>
+  <!-- 🎯 Hero Section - 融合 OsGa.dev 和 Edit-Mr 設計 -->
+  <section class="hero-main">
+    <div class="hero-container">
+      <div class="hero-greeting animate-fade-in-up">
+        <span>HI! I'm a </span>
+        <span class="typing-text" id="typingText">Developer</span>
+      </div>
+      
+      <h1 class="hero-title animate-scale-in delay-200">
+        yeee<span class="title-dot">.</span>dev
+      </h1>
+      
+      <p class="hero-subtitle animate-fade-in-up delay-300">
+        A student from <span class="highlight-text">Taiwan</span>, <span class="highlight-blue"> BambooFox</span> member,
+        passionate about cybersecurity and development,
+        currently a CTF player focused on <span class="highlight-orange">Web Security</span> and <span class="highlight-green">Cryptography</span>.
+      </p>
+      
+      <!-- 頭像 -->
+      <div class="hero-avatar animate-scale-in delay-400">
+        <img src="/avatar.jpg" alt="yeee avatar" class="avatar-img" />
+      </div>
+      
+      <!-- 社交媒體連結 -->
+      <div class="social-links animate-fade-in-up delay-500">
+        <a href="/blog" class="social-btn" title="Blog">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="currentColor" stroke-width="2"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <span>BLOG</span>
+        </a>
+        <a href="https://www.instagram.com/1_bcy_/" class="social-btn" title="Instagram" target="_blank">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="2"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke="currentColor" stroke-width="2"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <span>Instagram</span>
+        </a>
+        <a href="https://github.com/ericchen913900" class="social-btn" title="GitHub" target="_blank">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+        <a href="mailto:contact@example.com" class="social-btn" title="Email">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2"/>
+            <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <span>Email</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 📝 最新文章區塊 -->
+  <section class="posts-section">
+    <div class="posts-container">
+      <div class="section-header">
+        <h2 class="section-title">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"/>
+            <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2"/>
+            <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2"/>
+            <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2"/>
+            <polyline points="10,9 9,9 8,9" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          Latest Posts
+        </h2>
+        <p class="section-subtitle">分享我在資安領域的學習心得與實戰經驗</p>
+      </div>
+      
+      <div class="posts-grid">
+        {posts
+          .sort((a,b)=> new Date(b.date).getTime() - new Date(a.date).getTime())
+          .slice(0,3)
+          .map((post, index) => (
+            <article class="post-card">
+              <div class="post-header">
+                <div class="post-date">
+                  {new Date(post.date).toLocaleDateString('zh-TW', { 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric' 
+                  })}
+                </div>
+                <div class="post-tags">
+                  {(post.tags || []).map(tag => (
+                    <span class="post-tag">{tag}</span>
+                  ))}
+                </div>
+              </div>
+              
+              <h3 class="post-title">
+                <a href={post.slug}>{post.title}</a>
+              </h3>
+              
+              <div class="post-footer">
+                <a href={post.slug} class="read-more">
+                  Read More
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                </a>
+              </div>
+            </article>
+          ))}
+      </div>
+      
+      <div class="view-all">
+        <a href="/blog" class="view-all-btn">
+          View All Posts
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // 打字機效果
+  const texts = ['Developer', 'CTF Player', 'Security Researcher', 'Student'];
+  let textIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  
+  function typeWriter() {
+    const typingElement = document.getElementById('typingText');
+    if (!typingElement) return;
+    
+    const currentText = texts[textIndex];
+    
+    if (isDeleting) {
+      typingElement.textContent = currentText.substring(0, charIndex - 1);
+      charIndex--;
+    } else {
+      typingElement.textContent = currentText.substring(0, charIndex + 1);
+      charIndex++;
+    }
+    
+    let typeSpeed = isDeleting ? 100 : 150;
+    
+    if (!isDeleting && charIndex === currentText.length) {
+      typeSpeed = 2000;
+      isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      textIndex = (textIndex + 1) % texts.length;
+      typeSpeed = 500;
+    }
+    
+    setTimeout(typeWriter, typeSpeed);
+  }
+  
+  // 啟動打字機效果
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(typeWriter, 1000);
+  });
+</script>
